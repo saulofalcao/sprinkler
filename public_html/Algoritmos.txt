@@ -1,0 +1,1 @@
+Quando seleciona uma zona.id, então o option que estava com o zona.id selecionado ficará em branco.
