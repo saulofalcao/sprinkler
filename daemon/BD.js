@@ -59,9 +59,9 @@ BD.prototype.getProgramacoes = function (connection, callback) {
     });
 };
 
-BD.prototype.getProgramacaoAtivaPorHoraInicio = function (connection, hora, callback) {
+BD.prototype.getProgramacaoAtivaPorHoraInicio = function (connection, hora) {
 //SELECT * FROM `programacoes` WHERE TIME(`hora_inicio`) >= TIME('11:30:00') AND TIME(`hora_inicio`) <= TIME('2014-10-10 11:30:00' + INTERVAL 10 MINUTE)
-    var sql = "SELECT * FROM ?? WHERE TIME(??) >= TIME(?) AND TIME(??) <= TIME(? + INTERVAL " + INTERVALO_CHECAGEM_EM_SEGUNDOS + " SECOND) AND ??=?";
+    var sql = "SELECT * FROM ?? WHERE TIME(??) >= TIME(?) AND TIME(??) <= TIME(? + INTERVAL " + INTERVALO_CHECAGEM_EM_SEGUNDOS * 2 + " SECOND) AND ??=?";
     var table = ["programacoes", "hora_inicio", hora, "hora_inicio",hora, "ativa",true];
     var query = mysql.format(sql, table);
     console.log(query);
@@ -73,11 +73,28 @@ BD.prototype.getProgramacaoAtivaPorHoraInicio = function (connection, hora, call
         else {
 //            console.log({"Error": false, "Mensagem": "Sucesso ao executar query BD.prototype.getProgramacoes", "Programacoes": rows});
             console.log({"Error": false, "Mensagem": "Sucesso ao executar query BD.prototype.getProgramacoes"});
-//            return rows;
-            callback(rows);
+            return rows;
+//            callback(rows);
         }
     });
 };
+
+//BD.prototype.getZonasProgramacao = function (connection, programacao, callback) {
+//    var programacaoId = 
+//    var sql = "SELECT ?? FROM ?? WHERE ??=?";
+//    var table = ["zona_id","zona_programacao","programacao",];
+//    var query = mysql.format(sql, table);
+//    connection.query(query, function (err, rows) {
+//        if (err) {
+//            console.log({"Error": true, "Mensagem": "Erro executando query BD.prototype.getProgramacoes", "Detalhe": err.message});
+//        }
+//        else {
+////            console.log({"Error": false, "Mensagem": "Sucesso ao executar query BD.prototype.getProgramacoes", "Programacoes": rows});
+//            console.log({"Error": false, "Mensagem": "Sucesso ao executar query BD.prototype.getProgramacoes"});
+//            callback(rows);
+//        }
+//    });
+//};
 
 
 
